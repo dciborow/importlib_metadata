@@ -59,7 +59,7 @@ class DistSearch(unittest.TestCase):
         use-cases (only). Ref python/importlib_metadata#111.
         """
         res = MetadataPathFinder._search_paths('any-name', [])
-        assert list(res) == []
+        assert not list(res)
 
     def test_interleaved_discovery(self):
         """

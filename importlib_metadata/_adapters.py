@@ -42,9 +42,7 @@ class Message(email.message.Message):
     def _repair_headers(self):
         def redent(value):
             "Correct for RFC822 indentation"
-            if not value or '\n' not in value:
-                return value
-            return textwrap.dedent(' ' * 8 + value)
+            return textwrap.dedent(' ' * 8 + value) if value and '\n' in value else value
 
         headers = [(key, redent(value)) for key, value in vars(self)['_headers']]
         if self._payload:

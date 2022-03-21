@@ -458,9 +458,7 @@ class SelectableGroups(Deprecated, dict):
         return self._all.names
 
     def select(self, **params):
-        if not params:
-            return self
-        return self._all.select(**params)
+        return self._all.select(**params) if params else self
 
 
 class PackagePath(pathlib.PurePosixPath):
@@ -520,8 +518,7 @@ class Distribution:
             dist = next(iter(dists), None)
             if dist is not None:
                 return dist
-        else:
-            raise PackageNotFoundError(name)
+        raise PackageNotFoundError(name)
 
     @classmethod
     def discover(cls, **kwargs):

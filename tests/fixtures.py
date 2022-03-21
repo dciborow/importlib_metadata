@@ -271,13 +271,12 @@ def build_files(file_defs, prefix=pathlib.Path()):
         if isinstance(contents, dict):
             full_name.mkdir()
             build_files(contents, prefix=full_name)
+        elif isinstance(contents, bytes):
+            with full_name.open('wb') as f:
+                f.write(contents)
         else:
-            if isinstance(contents, bytes):
-                with full_name.open('wb') as f:
-                    f.write(contents)
-            else:
-                with full_name.open('w', encoding='utf-8') as f:
-                    f.write(DALS(contents))
+            with full_name.open('w', encoding='utf-8') as f:
+                f.write(DALS(contents))
 
 
 class FileBuilder:
